@@ -31,7 +31,7 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between}
 .burger{display:none;background:none;border:0;color:#fff;font-size:1.8rem;cursor:pointer}
 /* HERO */
 .hero{min-height:100vh;display:flex;align-items:center;position:relative;color:#fff;overflow:hidden;background:#000}
-.hero:after{content:'';position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1562322140-8baeececf3df?w=1920&q=80') center/cover;filter:saturate(1.25) contrast(1.05);z-index:0}
+.hero:after{content:'';position:absolute;inset:0;background:url('https://static.wixstatic.com/media/1dc7a6_b4e2d2fe3aa5426aa03e272406ed5573~mv2_d_4032_3024_s_4_2.jpg/v1/fill/w_1920,h_1440,al_c,q_85,usm_0.66_1.00_0.01/1dc7a6_b4e2d2fe3aa5426aa03e272406ed5573~mv2_d_4032_3024_s_4_2.jpg') center/cover;filter:saturate(1.25) contrast(1.05);z-index:0}
 .hero:before{content:'';position:absolute;inset:0;background:linear-gradient(100deg,rgba(0,0,0,.72) 0%,rgba(0,0,0,.4) 50%,rgba(255,46,136,.12) 100%);z-index:1}
 .hero .wrap{position:relative;z-index:2}
 .tag{display:inline-block;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.4);padding:7px 18px;border-radius:50px;font-size:.85rem;letter-spacing:2px;text-transform:uppercase;margin-bottom:22px}
@@ -69,10 +69,10 @@ section{padding:100px 0}
 .svc small{color:#999}
 .svc .pr{font-size:1.4rem;font-weight:700;background:var(--grad);-webkit-background-clip:text;color:transparent}
 /* GALLERY */
-.gallery{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:240px;gap:14px}
+.gallery{display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:240px;gap:14px}
 .gallery div{border-radius:18px;overflow:hidden;position:relative}
 .gallery div:nth-child(1){grid-row:span 2}
-.gallery div:nth-child(4){grid-column:span 2}
+.gallery div:nth-child(4){grid-column:span 2}.gallery div:nth-child(5){grid-column:span 1}
 .gallery img{width:100%;height:100%;object-fit:cover;transition:.6s}
 .gallery div:hover img{transform:scale(1.1)}
 .gallery div:after{content:'';position:absolute;inset:0;background:linear-gradient(transparent 60%,rgba(255,46,136,.45));opacity:0;transition:.4s}
@@ -162,8 +162,8 @@ footer a{color:var(--gold)}
 
 <section id="chi-siamo"><div class="wrap about">
   <div class="pics reveal">
-    <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=900&q=80" alt="Hair styling">
-    <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=700&q=80" alt="Il salone">
+    <img src="https://static.wixstatic.com/media/1dc7a6_5ec8a843d2b8470486d4c383eff2c695~mv2_d_3024_4032_s_4_2.jpg/v1/fill/w_800,h_1066,al_c,q_85,usm_0.66_1.00_0.01/1dc7a6_5ec8a843d2b8470486d4c383eff2c695~mv2_d_3024_4032_s_4_2.jpg" alt="City Salon Salerno">
+    <img src="https://static.wixstatic.com/media/1dc7a6_f81115b81f3b4998b38f2416f038e4ea~mv2_d_4032_3024_s_4_2.jpg/v1/fill/w_800,h_600,al_c,q_85,usm_0.66_1.00_0.01/1dc7a6_f81115b81f3b4998b38f2416f038e4ea~mv2_d_4032_3024_s_4_2.jpg" alt="Il salone di Maurizio Melella">
   </div>
   <div class="reveal">
     <div class="head" style="text-align:left;margin:0"><small>Chi siamo</small></div>
@@ -184,13 +184,11 @@ footer a{color:var(--gold)}
 <section id="galleria"><div class="wrap">
   <div class="head reveal"><small>Galleria</small><h2>Lasciati <span>ispirare</span></h2></div>
   <div class="gallery reveal">
-    <div><img src="https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?w=800&q=80" alt=""></div>
-    <div><img src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=600&q=80" alt=""></div>
-    <div><img src="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?w=600&q=80" alt=""></div>
-    <div><img src="https://images.unsplash.com/photo-1633681926022-84c23e8cb2d6?w=1000&q=80" alt=""></div>
-    <div><img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=600&q=80" alt=""></div>
-    <div><img src="https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=600&q=80" alt=""></div>
-    <div><img src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=600&q=80" alt=""></div>
+    <div><img src="https://static.wixstatic.com/media/1dc7a6_990021cb43b44791a76ac90d0d663fb1~mv2_d_3024_4032_s_4_2.jpg/v1/fill/w_600,h_800,al_c,q_85,usm_0.66_1.00_0.01/1dc7a6_990021cb43b44791a76ac90d0d663fb1~mv2_d_3024_4032_s_4_2.jpg" alt="City Salon Salerno"></div>
+    <div><img src="https://static.wixstatic.com/media/1dc7a6_f81115b81f3b4998b38f2416f038e4ea~mv2_d_4032_3024_s_4_2.jpg/v1/fill/w_800,h_600,al_c,q_85,usm_0.66_1.00_0.01/1dc7a6_f81115b81f3b4998b38f2416f038e4ea~mv2_d_4032_3024_s_4_2.jpg" alt="City Salon Salerno"></div>
+    <div><img src="https://static.wixstatic.com/media/1dc7a6_5a13e198e45940a3856adb0a86397124~mv2_d_3024_4032_s_4_2.jpg/v1/fill/w_600,h_800,al_c,q_85,usm_0.66_1.00_0.01/1dc7a6_5a13e198e45940a3856adb0a86397124~mv2_d_3024_4032_s_4_2.jpg" alt="City Salon Salerno"></div>
+    <div><img src="https://static.wixstatic.com/media/1dc7a6_b4e2d2fe3aa5426aa03e272406ed5573~mv2_d_4032_3024_s_4_2.jpg/v1/fill/w_1200,h_600,al_c,q_85,usm_0.66_1.00_0.01/1dc7a6_b4e2d2fe3aa5426aa03e272406ed5573~mv2_d_4032_3024_s_4_2.jpg" alt="City Salon Salerno"></div>
+    <div><img src="https://static.wixstatic.com/media/1dc7a6_5ec8a843d2b8470486d4c383eff2c695~mv2_d_3024_4032_s_4_2.jpg/v1/fill/w_600,h_800,al_c,q_85,usm_0.66_1.00_0.01/1dc7a6_5ec8a843d2b8470486d4c383eff2c695~mv2_d_3024_4032_s_4_2.jpg" alt="City Salon Salerno"></div>
   </div>
 </div></section>
 
