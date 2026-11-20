@@ -36,8 +36,8 @@ const DEFAULT_DB = {
     notaOrari: 'Lunedì su prenotazione telefonica'
   },
   staff: [
-    { id: 's1', nome: 'Maurizio', ruolo: 'Titolare & Hair Stylist', colore: '#c9577f', attivo: true },
-    { id: 's2', nome: 'Staff', ruolo: 'Hair Stylist', colore: '#7a9fb0', attivo: true }
+    { id: 's1', nome: 'Maurizio', ruolo: 'Titolare & Hair Stylist', colore: '#ff2e88', attivo: true },
+    { id: 's2', nome: 'Staff', ruolo: 'Hair Stylist', colore: '#00d9ff', attivo: true }
   ],
   services: [
     { id: 'sv1', categoria: 'Donna', nome: 'Piega', durata: 30, prezzo: 18, attivo: true },
