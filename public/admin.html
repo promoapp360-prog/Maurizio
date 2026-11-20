@@ -7,11 +7,11 @@
 <meta name="robots" content="noindex">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--pink:#ff2e88;--violet:#ff7a1a;--cyan:#00d9ff;--gold:#ffc83d;--green:#00d68f;--dark:#000;--bg:#f4f4f6;--grad:linear-gradient(120deg,#ff2e88,#ff7a1a)}
+:root{--pink:#ffb000;--violet:#ff7a1a;--cyan:#00d9ff;--gold:#ffc83d;--green:#00d68f;--dark:#000;--bg:#f4f4f6;--grad:linear-gradient(120deg,#ffb000,#ff7a1a)}
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:Poppins,sans-serif;background:var(--bg);color:#222}
 button{font-family:inherit;cursor:pointer}
-.btn{background:var(--grad);color:#fff;border:0;padding:10px 20px;border-radius:12px;font-weight:600;box-shadow:0 6px 18px rgba(255,46,136,.3)}
+.btn{background:var(--grad);color:#fff;border:0;padding:10px 20px;border-radius:12px;font-weight:600;box-shadow:0 6px 18px rgba(255,176,0,.3)}
 .btn.sm{padding:6px 12px;font-size:.8rem;border-radius:8px;box-shadow:none}
 .btn.gray{background:#ece6f7;color:#444;box-shadow:none}
 .btn.red{background:#ff4d6d}.btn.green{background:var(--green)}
@@ -93,7 +93,7 @@ tr:hover td{background:#fcfaff}
   <input type="password" id="pwd" placeholder="Password" autofocus>
   <button class="btn" onclick="login()">Accedi</button>
   <div id="lerr"></div>
-  <p style="margin-top:16px"><a href="/" style="color:#ff2e88;font-size:.85rem">← Torna al sito</a></p>
+  <p style="margin-top:16px"><a href="/" style="color:#ffb000;font-size:.85rem">← Torna al sito</a></p>
 </div></div>
 
 <div id="app">
@@ -227,7 +227,7 @@ async function saveSvc(id){const o={categoria:$('#sC').value.trim()||'Altro',nom
 function staff(){
   $('#view').innerHTML=`<div class="panel"><div class="filters"><button class="btn" onclick="editStaff()">+ Nuovo operatore</button></div><div class="tbl"><table><tr><th>Colore</th><th>Nome</th><th>Ruolo</th><th>Attivo</th><th></th></tr>${S.staff.map(s=>`<tr><td><span style="display:inline-block;width:22px;height:22px;border-radius:50%;background:${s.colore}"></span></td><td><b>${esc(s.nome)}</b></td><td>${esc(s.ruolo)}</td><td>${s.attivo?'✅':'⛔'}</td><td><button class="btn sm gray" onclick="editStaff('${s.id}')">✏️</button></td></tr>`).join('')}</table></div></div>`;
 }
-function editStaff(id){const s=S.staff.find(x=>x.id===id)||{colore:'#ff2e88',attivo:true};openM(`<h3>${id?'Modifica':'Nuovo'} operatore</h3><div class="fm"><div><label>Nome</label><input id="tN" value="${esc(s.nome)}"></div><div><label>Ruolo</label><input id="tR" value="${esc(s.ruolo)}"></div><div><label>Colore agenda</label><input type="color" id="tC" value="${s.colore}" style="height:46px"></div><div><label><input type="checkbox" id="tA" style="width:auto" ${s.attivo?'checked':''}> Attivo</label></div></div>
+function editStaff(id){const s=S.staff.find(x=>x.id===id)||{colore:'#ffb000',attivo:true};openM(`<h3>${id?'Modifica':'Nuovo'} operatore</h3><div class="fm"><div><label>Nome</label><input id="tN" value="${esc(s.nome)}"></div><div><label>Ruolo</label><input id="tR" value="${esc(s.ruolo)}"></div><div><label>Colore agenda</label><input type="color" id="tC" value="${s.colore}" style="height:46px"></div><div><label><input type="checkbox" id="tA" style="width:auto" ${s.attivo?'checked':''}> Attivo</label></div></div>
 <div class="mf"><div>${id?`<button class="btn red" onclick="delItem('staff','${id}')">Elimina</button>`:''}</div><div><button class="btn gray" onclick="closeM()">Annulla</button> <button class="btn" onclick="saveStaff('${id||''}')">Salva</button></div></div>`)}
 async function saveStaff(id){const o={nome:$('#tN').value.trim(),ruolo:$('#tR').value.trim(),colore:$('#tC').value,attivo:$('#tA').checked};if(!o.nome)return toast('Inserisci il nome');await api('staff'+(id?'/'+id:''),id?'PUT':'POST',o);closeM();toast('Salvato ✓');await loadBase();staff()}
 

@@ -36,7 +36,7 @@ const DEFAULT_DB = {
     notaOrari: 'Lunedì su prenotazione telefonica'
   },
   staff: [
-    { id: 's1', nome: 'Maurizio', ruolo: 'Titolare & Hair Stylist', colore: '#ff2e88', attivo: true },
+    { id: 's1', nome: 'Maurizio', ruolo: 'Titolare & Hair Stylist', colore: '#ffb000', attivo: true },
     { id: 's2', nome: 'Staff', ruolo: 'Hair Stylist', colore: '#00d9ff', attivo: true }
   ],
   services: [
