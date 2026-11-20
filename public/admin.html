@@ -7,7 +7,7 @@
 <meta name="robots" content="noindex">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--pink:#ff2e88;--violet:#a63cff;--cyan:#00d9ff;--gold:#ffc83d;--green:#00d68f;--dark:#000;--bg:#f4f4f6;--grad:linear-gradient(120deg,#ff2e88,#a63cff)}
+:root{--pink:#ff2e88;--violet:#ff7a1a;--cyan:#00d9ff;--gold:#ffc83d;--green:#00d68f;--dark:#000;--bg:#f4f4f6;--grad:linear-gradient(120deg,#ff2e88,#ff7a1a)}
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:Poppins,sans-serif;background:var(--bg);color:#222}
 button{font-family:inherit;cursor:pointer}
@@ -93,7 +93,7 @@ tr:hover td{background:#fcfaff}
   <input type="password" id="pwd" placeholder="Password" autofocus>
   <button class="btn" onclick="login()">Accedi</button>
   <div id="lerr"></div>
-  <p style="margin-top:16px"><a href="/" style="color:#7b2ff7;font-size:.85rem">← Torna al sito</a></p>
+  <p style="margin-top:16px"><a href="/" style="color:#ff2e88;font-size:.85rem">← Torna al sito</a></p>
 </div></div>
 
 <div id="app">
@@ -140,7 +140,7 @@ function closeM(){$('#modal').classList.remove('on')}
 function openM(h){$('#mbox').innerHTML=h;$('#modal').classList.add('on')}
 $('#modal').onclick=e=>e.target.id==='modal'&&closeM();
 const staffName=id=>(S.staff.find(s=>s.id===id)||{}).nome||'—';
-const staffCol=id=>(S.staff.find(s=>s.id===id)||{}).colore||'#7b2ff7';
+const staffCol=id=>(S.staff.find(s=>s.id===id)||{}).colore||'#ff7a1a';
 
 /* DASHBOARD */
 async function dash(){
