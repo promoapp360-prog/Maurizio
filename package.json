@@ -1,0 +1,9 @@
+{
+  "name": "city-salon-maurizio",
+  "version": "1.0.0",
+  "description": "City Salon Maurizio Melella - sito, prenotazioni online e gestionale",
+  "main": "server.js",
+  "scripts": { "start": "node server.js" },
+  "engines": { "node": ">=18" },
+  "license": "UNLICENSED"
+}

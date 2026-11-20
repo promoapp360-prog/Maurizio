@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gestionale — City Salon</title>
+<meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--pink:#ff2d87;--violet:#7b2ff7;--cyan:#00c2ff;--gold:#ffc93c;--green:#00d68f;--dark:#1a0b2e;--bg:#f6f2ff;--grad:linear-gradient(120deg,#ff2d87,#7b2ff7 60%,#00c2ff)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Poppins,sans-serif;background:var(--bg);color:#222}
+button{font-family:inherit;cursor:pointer}
+.btn{background:var(--grad);color:#fff;border:0;padding:10px 20px;border-radius:12px;font-weight:600;box-shadow:0 6px 18px rgba(255,45,135,.3)}
+.btn.sm{padding:6px 12px;font-size:.8rem;border-radius:8px;box-shadow:none}
+.btn.gray{background:#ece6f7;color:#444;box-shadow:none}
+.btn.red{background:#ff4d6d}.btn.green{background:var(--green)}
+input,select,textarea{width:100%;padding:11px 13px;border:1.5px solid #e2d9f3;border-radius:10px;font-family:inherit;font-size:.95rem;background:#fff}
+input:focus,select:focus,textarea:focus{outline:0;border-color:var(--pink)}
+/* LOGIN */
+#login{min-height:100vh;display:grid;place-items:center;background:var(--grad)}
+#login .box{background:#fff;padding:44px;border-radius:24px;width:min(92vw,380px);text-align:center;box-shadow:0 30px 80px rgba(0,0,0,.25)}
+#login h1{margin-bottom:6px;background:var(--grad);-webkit-background-clip:text;color:transparent}
+#login input{margin:22px 0 14px;text-align:center}
+#login .btn{width:100%}
+#lerr{color:#ff4d6d;margin-top:10px;min-height:20px}
+/* APP */
+#app{display:none;min-height:100vh}
+aside{position:fixed;inset:0 auto 0 0;width:230px;background:var(--dark);color:#fff;padding:24px 14px;display:flex;flex-direction:column;z-index:20;transition:.3s}
+aside .lg{font-size:1.3rem;font-weight:700;padding:0 10px 24px}
+aside .lg span{background:linear-gradient(90deg,var(--gold),var(--pink));-webkit-background-clip:text;color:transparent}
+aside a{display:flex;gap:12px;padding:12px 14px;border-radius:12px;color:#cbbde6;cursor:pointer;font-weight:500;margin-bottom:4px}
+aside a:hover{background:rgba(255,255,255,.07);color:#fff}
+aside a.on{background:var(--grad);color:#fff}
+aside .bottom{margin-top:auto}
+main{margin-left:230px;padding:28px}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;gap:12px;flex-wrap:wrap}
+.top h2{font-size:1.6rem}
+.menu-t{display:none;background:var(--dark);color:#fff;border:0;border-radius:10px;padding:8px 12px;font-size:1.2rem}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:24px}
+.kpi{background:#fff;border-radius:18px;padding:20px;box-shadow:0 6px 20px rgba(123,47,247,.07);position:relative;overflow:hidden}
+.kpi:before{content:'';position:absolute;right:-20px;top:-20px;width:90px;height:90px;border-radius:50%;opacity:.15}
+.kpi:nth-child(1):before{background:var(--pink)}.kpi:nth-child(2):before{background:var(--violet)}.kpi:nth-child(3):before{background:var(--cyan)}.kpi:nth-child(4):before{background:var(--gold)}
+.kpi small{color:#888;font-weight:500}.kpi b{display:block;font-size:1.9rem;margin-top:4px}
+.panel{background:#fff;border-radius:18px;padding:22px;box-shadow:0 6px 20px rgba(123,47,247,.07);margin-bottom:20px}
+.panel h3{margin-bottom:14px}
+.grid2{display:grid;grid-template-columns:2fr 1fr;gap:20px}
+table{width:100%;border-collapse:collapse;font-size:.9rem}
+th{text-align:left;color:#888;font-weight:500;padding:10px 8px;border-bottom:2px solid #f0eaf9}
+td{padding:11px 8px;border-bottom:1px solid #f4f0fa;vertical-align:middle}
+tr:hover td{background:#fcfaff}
+.badge{padding:4px 10px;border-radius:20px;font-size:.75rem;font-weight:600;white-space:nowrap}
+.b-confermata{background:#e3f4ff;color:#0088cc}.b-completata{background:#dcfaec;color:#00a36c}.b-annullata{background:#ffe3e8;color:#e0284f}.b-noshow{background:#fff3d6;color:#c48a00}
+.filters{display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.filters input,.filters select{width:auto}
+/* AGENDA */
+.ag-head{display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap}
+.ag-head input{width:auto}
+.agenda{display:grid;overflow-x:auto;border:1px solid #eee;border-radius:14px;background:#fff}
+.ag-col{border-left:1px solid #f0eaf9;position:relative;min-width:180px}
+.ag-col h4{text-align:center;padding:10px;background:#faf7ff;border-bottom:1px solid #eee;position:sticky;top:0}
+.ag-times{min-width:60px}
+.ag-slot{height:40px;border-bottom:1px dashed #f1ecf8;font-size:.72rem;color:#aaa;padding:2px 6px}
+.ag-ev{position:absolute;left:4px;right:4px;border-radius:10px;padding:5px 8px;color:#fff;font-size:.78rem;overflow:hidden;cursor:pointer;box-shadow:0 4px 10px rgba(0,0,0,.15)}
+.ag-ev b{display:block}
+.ag-ev.annullata{opacity:.35;text-decoration:line-through}
+/* MODAL */
+.modal{position:fixed;inset:0;background:rgba(26,11,46,.55);display:none;place-items:center;z-index:100;padding:16px}
+.modal.on{display:grid}
+.modal .box{background:#fff;border-radius:20px;padding:26px;width:min(560px,100%);max-height:92vh;overflow:auto}
+.modal h3{margin-bottom:16px}
+.fm{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.fm .full{grid-column:1/-1}
+.fm label{font-size:.8rem;color:#666;display:block;margin-bottom:4px}
+.mf{display:flex;justify-content:space-between;gap:10px;margin-top:20px;flex-wrap:wrap}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--dark);color:#fff;padding:12px 24px;border-radius:12px;transition:.3s;z-index:200}
+.toast.on{transform:translateX(-50%)}
+.hr-row{display:grid;grid-template-columns:110px 80px 1fr 1fr;gap:10px;align-items:center;margin-bottom:8px}
+.bar{height:10px;border-radius:6px;background:var(--grad)}
+.empty{color:#999;padding:20px;text-align:center}
+@media(max-width:900px){
+ aside{transform:translateX(-100%)}aside.open{transform:none}
+ main{margin-left:0;padding:16px}.menu-t{display:block}
+ .grid2,.fm{grid-template-columns:1fr}
+ .tbl{overflow-x:auto}
+ .hr-row{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+<div id="login"><div class="box">
+  <h1>City Salon</h1><p style="color:#888">Area gestionale</p>
+  <input type="password" id="pwd" placeholder="Password" autofocus>
+  <button class="btn" onclick="login()">Accedi</button>
+  <div id="lerr"></div>
+  <p style="margin-top:16px"><a href="/" style="color:#7b2ff7;font-size:.85rem">← Torna al sito</a></p>
+</div></div>
+
+<div id="app">
+<aside id="side">
+  <div class="lg">City <span>Salon</span></div>
+  <a data-v="dash" class="on">📊 Dashboard</a>
+  <a data-v="agenda">🗓️ Agenda</a>
+  <a data-v="pren">📋 Prenotazioni</a>
+  <a data-v="clienti">👥 Clienti</a>
+  <a data-v="servizi">✂️ Servizi</a>
+  <a data-v="staff">💇 Staff</a>
+  <a data-v="impost">⚙️ Impostazioni</a>
+  <div class="bottom"><a href="/" target="_blank">🌐 Vedi sito</a><a onclick="logout()">🚪 Esci</a></div>
+</aside>
+<main>
+  <div class="top"><div style="display:flex;gap:12px;align-items:center"><button class="menu-t" onclick="$('#side').classList.toggle('open')">☰</button><h2 id="title">Dashboard</h2></div>
+  <button class="btn" onclick="editBooking()">+ Nuovo appuntamento</button></div>
+  <div id="view"></div>
+</main>
+</div>
+
+<div class="modal" id="modal"><div class="box" id="mbox"></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+const $=s=>document.querySelector(s);
+let TOKEN=sessionStorage.getItem('cs_t')||'',S={services:[],staff:[],settings:{}},VIEW='dash',AGDATE=new Date().toISOString().slice(0,10);
+const eur=n=>'€ '+Number(n||0).toFixed(2).replace('.',',');
+const fd=d=>d?new Date(d+'T12:00').toLocaleDateString('it-IT',{weekday:'short',day:'2-digit',month:'short'}):'';
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const STATI=['confermata','completata','noshow','annullata'];
+const SL={confermata:'Confermata',completata:'Completata',noshow:'Non presentato',annullata:'Annullata'};
+function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('on');setTimeout(()=>e.classList.remove('on'),2200)}
+async function api(p,m='GET',b){const r=await fetch('/api/admin/'+p,{method:m,headers:{'Content-Type':'application/json',Authorization:'Bearer '+TOKEN},body:b?JSON.stringify(b):undefined});if(r.status===401){logout();throw 'auth'}const j=await r.json();if(!r.ok){toast(j.error||'Errore');throw j}return j}
+async function login(){const r=await fetch('/api/admin/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:$('#pwd').value})});const j=await r.json();if(!r.ok)return $('#lerr').textContent=j.error;TOKEN=j.token;sessionStorage.setItem('cs_t',TOKEN);start()}
+$('#pwd').onkeydown=e=>e.key==='Enter'&&login();
+function logout(){sessionStorage.removeItem('cs_t');TOKEN='';$('#app').style.display='none';$('#login').style.display='grid'}
+async function loadBase(){[S.services,S.staff,S.settings]=await Promise.all([api('services'),api('staff'),api('settings')])}
+async function start(){try{await loadBase()}catch{return}$('#login').style.display='none';$('#app').style.display='block';show(VIEW)}
+document.querySelectorAll('aside a[data-v]').forEach(a=>a.onclick=()=>{show(a.dataset.v);$('#side').classList.remove('open')});
+const TITLES={dash:'Dashboard',agenda:'Agenda',pren:'Prenotazioni',clienti:'Clienti',servizi:'Servizi & Listino',staff:'Staff',impost:'Impostazioni'};
+function show(v){VIEW=v;document.querySelectorAll('aside a[data-v]').forEach(a=>a.classList.toggle('on',a.dataset.v===v));$('#title').textContent=TITLES[v];({dash,agenda,pren,clienti,servizi,staff,impost})[v]()}
+function closeM(){$('#modal').classList.remove('on')}
+function openM(h){$('#mbox').innerHTML=h;$('#modal').classList.add('on')}
+$('#modal').onclick=e=>e.target.id==='modal'&&closeM();
+const staffName=id=>(S.staff.find(s=>s.id===id)||{}).nome||'—';
+const staffCol=id=>(S.staff.find(s=>s.id===id)||{}).colore||'#7b2ff7';
+
+/* DASHBOARD */
+async function dash(){
+  const d=await api('dashboard');
+  const max=Math.max(1,...d.topServizi.map(x=>x[1]));
+  $('#view').innerHTML=`<div class="kpis">
+   <div class="kpi"><small>Appuntamenti oggi</small><b>${d.oggi.length}</b></div>
+   <div class="kpi"><small>Prossimi appuntamenti</small><b>${d.prossimi}</b></div>
+   <div class="kpi"><small>Incasso oggi</small><b>${eur(d.incassoOggi)}</b></div>
+   <div class="kpi"><small>Incasso mese</small><b>${eur(d.incassoMese)}</b></div></div>
+   <div class="grid2"><div class="panel"><h3>📅 Oggi</h3>${d.oggi.length?`<div class="tbl"><table><tr><th>Ora</th><th>Cliente</th><th>Servizio</th><th>Operatore</th><th>Stato</th><th></th></tr>${d.oggi.map(rowB).join('')}</table></div>`:'<div class="empty">Nessun appuntamento oggi</div>'}</div>
+   <div class="panel"><h3>🔥 Servizi del mese</h3>${d.topServizi.length?d.topServizi.map(([n,c])=>`<div style="margin-bottom:12px"><div style="display:flex;justify-content:space-between;font-size:.85rem"><span>${esc(n)}</span><b>${c}</b></div><div class="bar" style="width:${c/max*100}%"></div></div>`).join(''):'<div class="empty">Ancora nessun dato</div>'}
+   <p style="margin-top:18px;color:#888;font-size:.85rem">👥 Clienti in archivio: <b>${d.clienti}</b><br>📋 Appuntamenti nel mese: <b>${d.appMese}</b></p></div></div>`;
+}
+function rowB(b){return `<tr><td><b>${b.ora}</b></td><td>${esc(b.nome)}<br><small style="color:#999">${esc(b.telefono)}</small></td><td>${esc(b.servizio)}</td><td><span style="color:${staffCol(b.staffId)};font-weight:600">● ${esc(staffName(b.staffId))}</span></td><td><span class="badge b-${b.stato}">${SL[b.stato]}</span></td><td style="white-space:nowrap">${b.stato==='confermata'?`<button class="btn sm green" onclick="setStato('${b.id}','completata')">✓ Fatto</button> `:''}<button class="btn sm gray" onclick="editBooking('${b.id}')">✏️</button></td></tr>`}
+async function setStato(id,st){await api('bookings/'+id,'PUT',{stato:st});toast('Aggiornato');show(VIEW)}
+
+/* AGENDA */
+async function agenda(){
+  const bs=(await api(`bookings?da=${AGDATE}&a=${AGDATE}`));
+  const day=new Date(AGDATE+'T12:00').getDay(),h=S.settings.orari[day]||{apre:'09:00',chiude:'19:00'};
+  const toM=t=>{const[a,b]=t.split(':').map(Number);return a*60+b},st=toM(h.apre),en=toM(h.chiude),step=30,px=40/step;
+  const staff=S.staff.filter(s=>s.attivo);let times='';
+  for(let t=st;t<en;t+=step)times+=`<div class="ag-slot">${String(t/60|0).padStart(2,'0')}:${String(t%60).padStart(2,'0')}</div>`;
+  const cols=staff.map(s=>`<div class="ag-col"><h4 style="color:${s.colore}">${esc(s.nome)}</h4><div style="position:relative">${times.replace(/>\d\d:\d\d</g,'><')}${bs.filter(b=>b.staffId===s.id).map(b=>`<div class="ag-ev ${b.stato}" style="top:${(toM(b.ora)-st)*px}px;height:${Math.max(b.durata*px-3,22)}px;background:${s.colore}" onclick="editBooking('${b.id}')"><b>${b.ora} ${esc(b.nome)}</b>${esc(b.servizio)}</div>`).join('')}</div></div>`).join('');
+  $('#view').innerHTML=`<div class="ag-head"><button class="btn gray" onclick="mvDay(-1)">◀</button><input type="date" value="${AGDATE}" onchange="AGDATE=this.value;agenda()"><button class="btn gray" onclick="mvDay(1)">▶</button><button class="btn gray" onclick="AGDATE=new Date().toISOString().slice(0,10);agenda()">Oggi</button><b style="margin-left:8px">${new Date(AGDATE+'T12:00').toLocaleDateString('it-IT',{weekday:'long',day:'numeric',month:'long'})}</b>${S.settings.orari[day]?'':' <span class="badge b-noshow">Giorno di chiusura</span>'}</div>
+  <div class="agenda" style="grid-template-columns:60px repeat(${staff.length},1fr)"><div class="ag-times"><h4 style="padding:10px;background:#faf7ff;border-bottom:1px solid #eee">&nbsp;</h4>${times}</div>${cols}</div>`;
+}
+function mvDay(n){const d=new Date(AGDATE+'T12:00');d.setDate(d.getDate()+n);AGDATE=d.toISOString().slice(0,10);agenda()}
+
+/* PRENOTAZIONI */
+let PF={da:new Date().toISOString().slice(0,10),a:'',q:'',st:''};
+async function pren(){
+  let bs=await api(`bookings?da=${PF.da}&a=${PF.a}`);
+  if(PF.q)bs=bs.filter(b=>(b.nome+b.telefono).toLowerCase().includes(PF.q.toLowerCase()));
+  if(PF.st)bs=bs.filter(b=>b.stato===PF.st);
+  $('#view').innerHTML=`<div class="panel"><div class="filters"><label>Dal <input type="date" value="${PF.da}" onchange="PF.da=this.value;pren()"></label><label>Al <input type="date" value="${PF.a}" onchange="PF.a=this.value;pren()"></label><select onchange="PF.st=this.value;pren()"><option value="">Tutti gli stati</option>${STATI.map(s=>`<option value="${s}" ${PF.st===s?'selected':''}>${SL[s]}</option>`).join('')}</select><input placeholder="🔍 Cerca cliente" value="${esc(PF.q)}" onchange="PF.q=this.value;pren()"></div>
+  <div class="tbl"><table><tr><th>Data</th><th>Ora</th><th>Cliente</th><th>Servizio</th><th>Operatore</th><th>Prezzo</th><th>Origine</th><th>Stato</th><th></th></tr>${bs.map(b=>`<tr><td>${fd(b.data)}</td>${rowB(b).replace('<tr>','').replace(/<td><span class="badge/,`<td>${eur(b.prezzo)}</td><td>${b.origine==='online'?'🌐 Online':'🏠 Salone'}</td><td><span class="badge`)}`).join('')||'<tr><td colspan=9 class="empty">Nessuna prenotazione</td></tr>'}</table></div></div>`;
+}
+function editBooking(id){
+  api('bookings').then(all=>{
+    const b=id?all.find(x=>x.id===id):{data:VIEW==='agenda'?AGDATE:new Date().toISOString().slice(0,10),ora:'10:00',stato:'confermata',staffId:(S.staff[0]||{}).id,servizioId:(S.services[0]||{}).id};
+    openM(`<h3>${id?'Modifica':'Nuovo'} appuntamento</h3><div class="fm">
+    <div><label>Nome cliente</label><input id="mNome" value="${esc(b.nome)}"></div><div><label>Telefono</label><input id="mTel" value="${esc(b.telefono)}"></div>
+    <div class="full"><label>Servizio</label><select id="mSv" onchange="const s=S.services.find(x=>x.id===this.value);mPr.value=s.prezzo;mDu.value=s.durata">${S.services.map(s=>`<option value="${s.id}" ${s.id===b.servizioId?'selected':''}>${esc(s.categoria)} · ${esc(s.nome)}</option>`).join('')}</select></div>
+    <div><label>Data</label><input type="date" id="mData" value="${b.data}"></div><div><label>Ora</label><input type="time" id="mOra" step="300" value="${b.ora}"></div>
+    <div><label>Durata (min)</label><input type="number" id="mDu" value="${b.durata??(S.services.find(s=>s.id===b.servizioId)||{}).durata??30}"></div><div><label>Prezzo €</label><input type="number" step="0.5" id="mPr" value="${b.prezzo??(S.services.find(s=>s.id===b.servizioId)||{}).prezzo??0}"></div>
+    <div><label>Operatore</label><select id="mSt">${S.staff.map(s=>`<option value="${s.id}" ${s.id===b.staffId?'selected':''}>${esc(s.nome)}</option>`).join('')}</select></div>
+    <div><label>Stato</label><select id="mStato">${STATI.map(s=>`<option value="${s}" ${s===b.stato?'selected':''}>${SL[s]}</option>`).join('')}</select></div>
+    <div class="full"><label>Note</label><textarea id="mNote" rows="2">${esc(b.note)}</textarea></div></div>
+    <div class="mf"><div>${id?`<button class="btn red" onclick="delItem('bookings','${id}')">Elimina</button> ${b.telefono?`<a class="btn green" style="text-decoration:none;display:inline-block" target="_blank" href="https://wa.me/${waNum(b.telefono)}?text=${encodeURIComponent(`Ciao ${b.nome}, ti ricordiamo l'appuntamento da City Salon il ${fd(b.data)} alle ${b.ora} per ${b.servizio}. A presto!`)}">💬 Promemoria</a>`:''}`:''}</div><div><button class="btn gray" onclick="closeM()">Annulla</button> <button class="btn" onclick="saveBooking('${id||''}')">Salva</button></div></div>`);
+  });
+}
+const waNum=t=>{let n=String(t).replace(/\D/g,'');if(!n.startsWith('39'))n='39'+n;return n};
+async function saveBooking(id){
+  const o={nome:$('#mNome').value.trim(),telefono:$('#mTel').value.trim(),servizioId:$('#mSv').value,data:$('#mData').value,ora:$('#mOra').value,durata:$('#mDu').value,prezzo:$('#mPr').value,staffId:$('#mSt').value,stato:$('#mStato').value,note:$('#mNote').value};
+  if(!o.nome)return toast('Inserisci il nome');
+  if(id){const s=S.services.find(x=>x.id===o.servizioId);o.servizio=s.nome}
+  await api('bookings'+(id?'/'+id:''),id?'PUT':'POST',o);closeM();toast('Salvato ✓');show(VIEW);
+}
+async function delItem(c,id){if(!confirm('Eliminare definitivamente?'))return;await api(c+'/'+id,'DELETE');closeM();toast('Eliminato');await loadBase();show(VIEW)}
+
+/* CLIENTI */
+let CQ='';
+async function clienti(){
+  let cs=await api('clients');if(CQ)cs=cs.filter(c=>(c.nome+c.telefono+c.email).toLowerCase().includes(CQ.toLowerCase()));
+  cs.sort((a,b)=>a.nome.localeCompare(b.nome));
+  $('#view').innerHTML=`<div class="panel"><div class="filters"><input placeholder="🔍 Cerca per nome, telefono, email" value="${esc(CQ)}" oninput="CQ=this.value;clearTimeout(window._t);window._t=setTimeout(clienti,300)" style="flex:1"><button class="btn" onclick="editClient()">+ Cliente</button></div>
+  <div class="tbl"><table><tr><th>Nome</th><th>Telefono</th><th>Email</th><th>Visite</th><th>Speso</th><th>Ultima visita</th><th></th></tr>${cs.map(c=>`<tr><td><b>${esc(c.nome)}</b>${c.note?`<br><small style="color:#999">${esc(c.note)}</small>`:''}</td><td>${esc(c.telefono)}</td><td>${esc(c.email)}</td><td>${c.visite}</td><td>${eur(c.speso)}</td><td>${fd(c.ultima)}</td><td style="white-space:nowrap">${c.telefono?`<a class="btn sm green" style="text-decoration:none" target="_blank" href="https://wa.me/${waNum(c.telefono)}">💬</a> `:''}<button class="btn sm gray" onclick='editClient(${JSON.stringify(c).replace(/'/g,"&#39;")})'>✏️</button></td></tr>`).join('')||'<tr><td colspan=7 class="empty">Nessun cliente</td></tr>'}</table></div></div>`;
+}
+function editClient(c={}){openM(`<h3>${c.id?'Modifica':'Nuovo'} cliente</h3><div class="fm"><div><label>Nome</label><input id="cN" value="${esc(c.nome)}"></div><div><label>Telefono</label><input id="cT" value="${esc(c.telefono)}"></div><div class="full"><label>Email</label><input id="cE" value="${esc(c.email)}"></div><div class="full"><label>Note (colore usato, allergie, preferenze…)</label><textarea id="cNo" rows="3">${esc(c.note)}</textarea></div></div>
+<div class="mf"><div>${c.id?`<button class="btn red" onclick="delItem('clients','${c.id}')">Elimina</button>`:''}</div><div><button class="btn gray" onclick="closeM()">Annulla</button> <button class="btn" onclick="saveClient('${c.id||''}')">Salva</button></div></div>`)}
+async function saveClient(id){const o={nome:$('#cN').value.trim(),telefono:$('#cT').value.trim(),email:$('#cE').value.trim(),note:$('#cNo').value};if(!o.nome)return toast('Inserisci il nome');await api('clients'+(id?'/'+id:''),id?'PUT':'POST',o);closeM();toast('Salvato ✓');clienti()}
+
+/* SERVIZI */
+function servizi(){
+  $('#view').innerHTML=`<div class="panel"><div class="filters"><button class="btn" onclick="editSvc()">+ Nuovo servizio</button></div><div class="tbl"><table><tr><th>Categoria</th><th>Servizio</th><th>Durata</th><th>Prezzo</th><th>Online</th><th></th></tr>${S.services.map(s=>`<tr><td>${esc(s.categoria)}</td><td><b>${esc(s.nome)}</b></td><td>${s.durata} min</td><td>${eur(s.prezzo)}</td><td>${s.attivo?'✅':'⛔'}</td><td><button class="btn sm gray" onclick="editSvc('${s.id}')">✏️</button></td></tr>`).join('')}</table></div></div>`;
+}
+function editSvc(id){const s=S.services.find(x=>x.id===id)||{categoria:'Donna',durata:30,prezzo:0,attivo:true};openM(`<h3>${id?'Modifica':'Nuovo'} servizio</h3><div class="fm"><div><label>Categoria</label><input id="sC" list="cats" value="${esc(s.categoria)}"><datalist id="cats">${[...new Set(S.services.map(x=>x.categoria))].map(c=>`<option value="${esc(c)}">`).join('')}</datalist></div><div><label>Nome</label><input id="sN" value="${esc(s.nome)}"></div><div><label>Durata (min)</label><input type="number" id="sD" value="${s.durata}"></div><div><label>Prezzo €</label><input type="number" step="0.5" id="sP" value="${s.prezzo}"></div><div class="full"><label><input type="checkbox" id="sA" style="width:auto" ${s.attivo?'checked':''}> Visibile e prenotabile online</label></div></div>
+<div class="mf"><div>${id?`<button class="btn red" onclick="delItem('services','${id}')">Elimina</button>`:''}</div><div><button class="btn gray" onclick="closeM()">Annulla</button> <button class="btn" onclick="saveSvc('${id||''}')">Salva</button></div></div>`)}
+async function saveSvc(id){const o={categoria:$('#sC').value.trim()||'Altro',nome:$('#sN').value.trim(),durata:+$('#sD').value,prezzo:+$('#sP').value,attivo:$('#sA').checked};if(!o.nome)return toast('Inserisci il nome');await api('services'+(id?'/'+id:''),id?'PUT':'POST',o);closeM();toast('Salvato ✓');await loadBase();servizi()}
+
+/* STAFF */
+function staff(){
+  $('#view').innerHTML=`<div class="panel"><div class="filters"><button class="btn" onclick="editStaff()">+ Nuovo operatore</button></div><div class="tbl"><table><tr><th>Colore</th><th>Nome</th><th>Ruolo</th><th>Attivo</th><th></th></tr>${S.staff.map(s=>`<tr><td><span style="display:inline-block;width:22px;height:22px;border-radius:50%;background:${s.colore}"></span></td><td><b>${esc(s.nome)}</b></td><td>${esc(s.ruolo)}</td><td>${s.attivo?'✅':'⛔'}</td><td><button class="btn sm gray" onclick="editStaff('${s.id}')">✏️</button></td></tr>`).join('')}</table></div></div>`;
+}
+function editStaff(id){const s=S.staff.find(x=>x.id===id)||{colore:'#ff2d87',attivo:true};openM(`<h3>${id?'Modifica':'Nuovo'} operatore</h3><div class="fm"><div><label>Nome</label><input id="tN" value="${esc(s.nome)}"></div><div><label>Ruolo</label><input id="tR" value="${esc(s.ruolo)}"></div><div><label>Colore agenda</label><input type="color" id="tC" value="${s.colore}" style="height:46px"></div><div><label><input type="checkbox" id="tA" style="width:auto" ${s.attivo?'checked':''}> Attivo</label></div></div>
+<div class="mf"><div>${id?`<button class="btn red" onclick="delItem('staff','${id}')">Elimina</button>`:''}</div><div><button class="btn gray" onclick="closeM()">Annulla</button> <button class="btn" onclick="saveStaff('${id||''}')">Salva</button></div></div>`)}
+async function saveStaff(id){const o={nome:$('#tN').value.trim(),ruolo:$('#tR').value.trim(),colore:$('#tC').value,attivo:$('#tA').checked};if(!o.nome)return toast('Inserisci il nome');await api('staff'+(id?'/'+id:''),id?'PUT':'POST',o);closeM();toast('Salvato ✓');await loadBase();staff()}
+
+/* IMPOSTAZIONI */
+const GG=['Domenica','Lunedì','Martedì','Mercoledì','Giovedì','Venerdì','Sabato'];
+function impost(){const s=S.settings;
+  $('#view').innerHTML=`<div class="grid2"><div class="panel"><h3>🏪 Dati salone</h3><div class="fm">
+  ${[['nome','Nome'],['slogan','Slogan'],['indirizzo','Indirizzo'],['telefono','Telefono'],['whatsapp','WhatsApp (con prefisso, es. 39333…)'],['email','Email'],['instagram','Instagram URL'],['facebook','Facebook URL'],['notaOrari','Nota orari']].map(([k,l])=>`<div class="${k==='indirizzo'||k==='notaOrari'?'full':''}"><label>${l}</label><input id="set_${k}" value="${esc(s[k])}"></div>`).join('')}
+  <div><label>Intervallo slot (min)</label><select id="set_slot">${[15,20,30,45,60].map(n=>`<option ${n==s.slotMinuti?'selected':''}>${n}</option>`).join('')}</select></div></div></div>
+  <div class="panel"><h3>🕘 Orari prenotabili</h3>${[1,2,3,4,5,6,0].map(i=>{const h=s.orari[i];return `<div class="hr-row"><b>${GG[i]}</b><label><input type="checkbox" style="width:auto" id="o_on_${i}" ${h?'checked':''}> Aperto</label><input type="time" id="o_a_${i}" value="${h?h.apre:'09:00'}"><input type="time" id="o_c_${i}" value="${h?h.chiude:'19:00'}"></div>`}).join('')}
+  <br><button class="btn" style="width:100%" onclick="saveSet()">💾 Salva impostazioni</button>
+  <br><br><button class="btn gray" style="width:100%" onclick="backup()">⬇️ Scarica backup dati</button></div></div>`;
+}
+async function saveSet(){const o={};['nome','slogan','indirizzo','telefono','whatsapp','email','instagram','facebook','notaOrari'].forEach(k=>o[k]=$('#set_'+k).value);o.slotMinuti=+$('#set_slot').value;o.orari={};for(let i=0;i<7;i++)o.orari[i]=$('#o_on_'+i).checked?{apre:$('#o_a_'+i).value,chiude:$('#o_c_'+i).value}:null;S.settings=await api('settings','PUT',o);toast('Impostazioni salvate ✓')}
+async function backup(){const r=await fetch('/api/admin/export',{headers:{Authorization:'Bearer '+TOKEN}});const b=await r.blob();const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='backup-citysalon-'+new Date().toISOString().slice(0,10)+'.json';a.click()}
+
+if(TOKEN)start();
+</script>
+</body>
+</html>
